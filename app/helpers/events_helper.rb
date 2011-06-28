@@ -35,4 +35,29 @@ module EventsHelper
     html << '</ul>'
     html.html_safe
   end
+  
+  def to_ics(e)
+    url = "#{self.request.protocol}#{self.request.host}:#{self.request.port}/"
+    
+    event = Icalendar::Event.new
+    event.start = e.start_at.strftime("%Y%m%dT%H%M%S")
+    event.end = e.end_at.strftime("%Y%m%dT%H%M%S")
+    event.summary = e.title
+    event.description = e.description.gsub(/<\/?[^>]*>/, "")
+    event.location = "#{e.venue_name}, #{e.venue_address}"
+    event.klass = 'PUBLIC'
+    event.created = e.created_at.strftime("%Y%m%dT%H%M%S")
+    event.last_modified = e.updated_at.strftime("%Y%m%dT%H%M%S")
+    event.uid = "EVENT-#{e.id}"
+    event.url = "#{url}events/#{e.slugs.last.name}"
+        
+    categories = e.categories.each do |category|
+      event.add_category(category.name)
+    end
+    
+    event.add_comment("Price: #{e.ticket_price}") unless e.ticket_price.to_i == 0
+    event.add_comment("Ticket link: #{e.ticket_link}") unless e.ticket_link.empty?
+    
+    event
+  end
 end

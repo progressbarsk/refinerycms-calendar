@@ -1,0 +1,3 @@
+<% calendar = Icalendar::Calendar.new %>
+<% calendar.add_event(to_ics(@event)) %>
+<%= calendar.to_ical %>
