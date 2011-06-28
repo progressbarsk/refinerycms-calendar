@@ -12,44 +12,14 @@
 	</section>
 
 	<% unless individual -%>
-		<h1><%= link_to event.title, event %></h1>
+		<h3><%= link_to event.title, event %></h3>
 	<% end -%>
 	
 	<section class="start_end">
-		<p>Starts:<br/>
-		<%= event.start_at.strftime('%b %e, %Y %l:%M %p') %></p>
-		<p>Ends:<br/>
-		<%= event.end_at.strftime('%b %e, %Y %l:%M %p') %></p>
-  </section><!-- .start_end -->
-
-  <section class="venue">
-		<p>Location:<br/>
-		<%= event.venue_name %></p>
-  </section>
-
-  <section class="address">
-		<p>Address:<br/>
-      <%= event.venue_address %>
+		<p>
+      <span class="start"><%= event.start_at.strftime('%b %e, %Y %l:%M %p') %></span><span class="delim">&nbsp;|&nbsp;</span><span class="end"><%= event.end_at.strftime('%b %e, %Y %l:%M %p') %></span>
     </p>
   </section>
-
-<% unless archive -%>
-	<% unless event.ticket_price.blank? -%>
-	  <section class="price">
-	    <p>Ticket Price:<br/>
-	      <%=number_to_currency event.ticket_price %>
-	    </p>
-	  </section>
-	<% end -%>
-	<% unless event.ticket_link.blank? -%>
-	  <section class="ticket">
-	    <p>Ticket Link:<br/>
-	      <%=auto_link event.ticket_link %>
-	    </p>
-	  </section>
-	<% end -%>
-<% end -%>
-
   <section>
 		<% if individual -%>
     	<%=raw event.description %>
@@ -58,43 +28,39 @@
 		<% end -%>
   </section>
   
-
-  
 <% if individual -%>
+  <!-- 
 	<section id="share_this_event">
 	  <ul>
 	    <li class="facebook"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<%= request.url %>" layout="box_count" show_faces="false" width="55" font=""></fb:like></li>
 	    <li class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
 	  </ul>
 	</section>
+ -->
 
   <nav id="prevnext_nav">
 		<% if event.prev.present? -%>
 		  <%= link_to event_path(event.prev), :class => "prev button" do -%>
-  			<h3>Previous</h3>
-  			<h4><%=truncate event.prev.title, :length => 38 %></h4>
+        &laquo; Previous <strong><%=truncate event.prev.title, :length => 38 %></strong>  			
   		<% end -%>
 	  <% else -%>
-  	  <span class="prev disabled">
-  	    <h3>Previous</h3>
-				<h4>&nbsp;</h4>
+  	  <span class="prev disabled button">
+  	   &laquo; Previous
   	  </span>
 	  <% end -%>
 	
 		<%= link_to events_path, :class => "home button" do -%>
-			<h3>Events</h3>
-			<h4>Home</h4>
+			Events home
 		<% end -%>
 		
 		<% if event.next.present? -%>
 		  <%= link_to event_path(event.next), :class => "next button" do -%>
-  			<h3>Next</h3>
-  			<h4><%=truncate event.next.title, :length => 38 %></h4>
+      Next <strong>
+        <%=truncate event.next.title, :length => 38 %></strong> &raquo;
   		<% end -%>
     <% else -%>
-  	  <span class="next disabled">
-  	    <h3>Next</h3>
-				<h4>&nbsp;</h4>
+  	  <span class="next disabled button">
+        Next &raquo;
   	  </span>
 	  <% end -%>
 	</nav><!--#event_nav-->
