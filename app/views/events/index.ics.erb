@@ -1,5 +1,5 @@
 <% calendar = Icalendar::Calendar.new %>
-<% (@featured_events | @events).each_with_index do |event, index| %>
-<% calendar.add_event(event.to_ics) %>
+<% (@featured_events | @events).each do |event| %>
+<% calendar.add_event(to_ics(event)) %>
 <% end %>
 <%= calendar.to_ical %>
