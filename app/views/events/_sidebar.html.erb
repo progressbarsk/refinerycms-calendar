@@ -1,9 +1,9 @@
-<% content_for :meta, "
-                        <link 
-                          rel='alternate' 
-                          type='application/rss+xml' 
+<% content_for :meta, "<link rel='alternate' type='application/rss+xml' 
                           title='#{RefinerySetting.find_or_set(:site_name, 'Company Name')} Events'
                           href='#{events_url(:format => :rss)}' />".html_safe -%>
+<% content_for :meta, "<link rel='alternate' type='application/ics' 
+                          title='#{RefinerySetting.find_or_set(:site_name, 'Company Name')} Events'
+                          href='#{events_url(:format => :ics)}' />".html_safe -%>
 <% content_for :body_content_right do %>
 
   <% if @event_categories.any? %>
@@ -37,5 +37,9 @@
 		<h2>RSS</h2>
     <a href="<%= events_path(:format => :rss) %>"><img alt="rss icon" src="/images/s.gif" class="sprites sprite-icon-rss-32" /> Subscribe</a>
 	</aside><!-- .rss -->
+	<aside class="sidebar_module ical">
+		<h2>ICAL</h2>
+    <a href="<%= events_path(:format => :ics) %>"><img alt="ical icon" src="/images/s.gif" class="sprites sprite-icon-ical-32" /> Subscribe</a>
+	</aside><!-- .ics -->
 	
 <% end %>
