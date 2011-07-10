@@ -33,7 +33,7 @@
   <nav id="prevnext_nav">
 		<% if event.prev.present? -%>
 		  <%= link_to event_path(event.prev), :class => "prev button" do -%>
-        &laquo; Previous <strong><%=truncate event.prev.title, :length => 38 %></strong>  			
+        &laquo; Previous <strong><%=truncate event.prev.title, :length => 25 %></strong>  			
   		<% end -%>
 	  <% else -%>
   	  <span class="prev disabled button">
@@ -48,7 +48,7 @@
 		<% if event.next.present? -%>
 		  <%= link_to event_path(event.next), :class => "next button" do -%>
       Next <strong>
-        <%=truncate event.next.title, :length => 38 %></strong> &raquo;
+        <%=truncate event.next.title, :length => 25 %></strong> &raquo;
   		<% end -%>
     <% else -%>
   	  <span class="next disabled button">
