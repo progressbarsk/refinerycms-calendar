@@ -6,6 +6,8 @@ class EventsController < ApplicationController
   
   helper [:events, :event_categories]
   
+#  layout proc{ |c| c.request.xhr? ? false : "application" }
+  
   def index
     # you can use meta fields from your model instead (e.g. browser_title)
     # by swapping @page for @event in the line below:
@@ -37,7 +39,8 @@ class EventsController < ApplicationController
         :per_page => RefinerySetting.find_or_set(:events_per_page, 10)
       })
     end
-    #render :template => 'events/index'
+    
+    render :json => @events if request.xhr?
   end
 
 protected

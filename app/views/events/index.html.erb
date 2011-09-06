@@ -1,17 +1,17 @@
 <% content_for :body_content_left do %>
-	<div id="featured_events" class="events">
-		<h2>Featured Events</h2>
-		<%= render :partial => 'event', :collection => @featured_events, :locals => { :featured => true } %>
-	</div>
-	
+  <div id="featured_events" class="events">
+    <%= render :partial => 'event', :collection => @featured_events, :locals => { :featured => true } %>
+  </div>
   <div id="all_events" class="events">
-		<h2>All Events</h2>
-		<%= render :partial => 'event', :collection => @events %>
-	</div>
+    <%= render :partial => 'event', :collection => @events %>
+  </div>
+  <% if @featured_events.empty? and @events.empty? %>
+<div class="flash info">
+  <%= t('.none_events') %>
+</div>
+  <% end %>
 <% end %>
 
 <%= render 'events/sidebar' %>
 
 <%= render :partial => "/shared/content_page" %>
-
-<%# content_for :stylesheets, stylesheet_link_tag('refinerycms-events') %>
