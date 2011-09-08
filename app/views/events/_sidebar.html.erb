@@ -5,7 +5,7 @@ href='#{events_url(:format => :rss)}' />".html_safe -%>
 title='#{RefinerySetting.find_or_set(:site_name, 'Company Name')} Events'
 href='#{events_url(:format => :ics)}' />".html_safe -%>
 <% content_for :body_content_right do %>
-
+  <div id="jquery-ui-calendar-holder">&nbsp;</div>
   <% if @event_categories.any? %>
     <aside class="sidebar_module categories">
       <h2>Categories</h2>
