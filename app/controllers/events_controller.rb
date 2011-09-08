@@ -73,4 +73,11 @@ class EventsController < ApplicationController
     @event_categories = EventCategory.all
   end
 
+  def canonical?
+    canonical = (::Refinery.i18n_enabled? &&
+                ::Refinery::I18n.default_frontend_locale != ::Refinery::I18n.current_frontend_locale) ||
+                (@event.slugs.any? && @event.slugs.first.name != params[:id])
+    canonical
+  end
+
 end
