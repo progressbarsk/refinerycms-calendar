@@ -1,61 +1,61 @@
-<% 
-	featured ||= false
-	individual ||= false
-	archive ||= false
-	category ||= false
+<%
+featured ||= false
+individual ||= false
+archive ||= false
+category ||= false
 -%>
 
 <%= div_for event, :class => 'individual_event' do -%>
 
-	<section class="event_image">
-  	<%= image_fu event.image, "150x150#c" %>
-	</section>
+  <section class="event_image">
+    <%= image_fu event.image, "150x150#c" %>
+  </section>
 
-	<% unless individual -%>
-		<h3><%= link_to event.title, event %></h3>
-	<% end -%>
-	
-	<section class="start_end">
-		<p>
+  <% unless individual -%>
+    <h3><%= link_to event.title, event %></h3>
+  <% end -%>
+
+  <section class="start_end">
+    <p>
       <span class="start"><%= event.start_at.strftime('%b %e, %Y %l:%M %p') %></span><span class="delim">&nbsp;|&nbsp;</span><span class="end"><%= event.end_at.strftime('%b %e, %Y %l:%M %p') %></span>
     </p>
   </section>
   <section>
-		<% if individual -%>
-    	<%=raw event.description %>
-		<% else -%>
-			<%= simple_format(truncate strip_tags(event.description), :length => 200) %>
-		<% end -%>
-  </section>
-  
-<% if individual -%>
-
-  <nav id="prevnext_nav">
-		<% if event.prev.present? -%>
-		  <%= link_to event_path(event.prev), :class => "prev button" do -%>
-        &laquo; Previous <strong><%=truncate event.prev.title, :length => 25 %></strong>  			
-  		<% end -%>
-	  <% else -%>
-  	  <span class="prev disabled button">
-  	   &laquo; Previous
-  	  </span>
-	  <% end -%>
-	
-		<%= link_to events_path, :class => "home button" do -%>
-			Events home
-		<% end -%>
-		
-		<% if event.next.present? -%>
-		  <%= link_to event_path(event.next), :class => "next button" do -%>
-      Next <strong>
-        <%=truncate event.next.title, :length => 25 %></strong> &raquo;
-  		<% end -%>
+    <% if individual -%>
+      <%=raw event.description %>
     <% else -%>
-  	  <span class="next disabled button">
-        Next &raquo;
-  	  </span>
-	  <% end -%>
-	</nav><!--#event_nav-->
-<% end -%>
+      <%= simple_format(truncate strip_tags(event.description), :length => 200) %>
+    <% end -%>
+  </section>
+
+  <% if individual -%>
+
+    <nav id="prevnext_nav">
+      <% if event.prev.present? -%>
+        <%= link_to event_path(event.prev), :class => "prev button" do -%>
+          &laquo; Previous <strong><%=truncate event.prev.title, :length => 25 %></strong>
+        <% end -%>
+      <% else -%>
+        <span class="prev disabled button">
+          &laquo; Previous
+        </span>
+      <% end -%>
+
+      <%= link_to events_path, :class => "home button" do -%>
+        Events home
+      <% end -%>
+
+      <% if event.next.present? -%>
+        <%= link_to event_path(event.next), :class => "next button" do -%>
+          Next <strong>
+            <%=truncate event.next.title, :length => 25 %></strong> &raquo;
+        <% end -%>
+      <% else -%>
+        <span class="next disabled button">
+          Next &raquo;
+        </span>
+      <% end -%>
+    </nav><!--#event_nav-->
+  <% end -%>
 
 <% end -%>
