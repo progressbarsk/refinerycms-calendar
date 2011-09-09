@@ -31,30 +31,33 @@ category ||= false
   <% if individual -%>
 
     <nav id="prevnext_nav">
+      <span class="prev third">
       <% if event.prev.present? -%>
         <%= link_to event_path(event.prev), :class => "prev button" do -%>
-          &laquo; Previous <strong><%=truncate event.prev.title, :length => 25 %></strong>
+          &laquo; Previous <strong><%=truncate event.prev.title, :length => 20 %></strong>
         <% end -%>
       <% else -%>
         <span class="prev disabled button">
           &laquo; Previous
         </span>
       <% end -%>
+      </span>
 
       <%= link_to events_path, :class => "home button" do -%>
         Events home
       <% end -%>
-
-      <% if event.next.present? -%>
-        <%= link_to event_path(event.next), :class => "next button" do -%>
-          Next <strong>
-            <%=truncate event.next.title, :length => 25 %></strong> &raquo;
+       <span class="next third">
+        <% if event.next.present? -%>
+          <%= link_to event_path(event.next), :class => "next button" do -%>
+            Next <strong>
+              <%=truncate event.next.title, :length => 20 %></strong> &raquo;
+          <% end -%>
+        <% else -%>
+          <span class="next disabled button">
+            Next &raquo;
+          </span>
         <% end -%>
-      <% else -%>
-        <span class="next disabled button">
-          Next &raquo;
-        </span>
-      <% end -%>
+       </span>
     </nav><!--#event_nav-->
   <% end -%>
 
