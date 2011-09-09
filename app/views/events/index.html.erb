@@ -6,10 +6,14 @@
     <%= render :partial => 'event', :collection => @events %>
   </div>
   <% if @featured_events.empty? and @events.empty? %>
-<div class="flash info">
-  <%= t('.none_events') %>
-</div>
+  <div class="flash info">
+    <%= t('.none_events') %>
+  </div>
   <% end %>
+  <section class="archives">
+  <h2>Archives</h2>
+  <%= events_archive_list %>
+  </section><!-- .archives -->
 <% end %>
 
 <%= render 'events/sidebar' %>

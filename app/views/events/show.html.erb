@@ -6,10 +6,13 @@
   <div id="event">
     <%= render :partial => 'event', :locals => { :event => @event, :individual => true } %>
   </div>
+  <section class="archives">
+  <h2>Archives</h2>
+  <%= events_archive_list %>
+  </section><!-- .archives -->
 <% end %>
 
 <%= render 'events/sidebar' %>
 
 <%= render :partial => "/shared/content_page" %>
 
-<%# content_for :stylesheets, stylesheet_link_tag('refinerycms-events') %>

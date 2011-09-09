@@ -1,5 +1,5 @@
 module EventsHelper
-  
+
   def custom_url_for(event, format = nil)
     port = request.port == 80 ? nil : ":#{request.port}"
     "#{request.protocol}#{request.host}#{port}/events/#{event.friendly_id}#{format}"
@@ -14,21 +14,25 @@ module EventsHelper
 
     events.each do |e|
       if e.start_at >= Time.now.end_of_year.advance(:years => -3)
-        links << e.start_at.strftime('%m/%Y') 
+        links << e.start_at.strftime('%m/%Y')
       else
         super_old_links << e.start_at.strftime('01/%Y')
       end
     end
     links.uniq!
     super_old_links.uniq!
+    prev_year = nil
     links.each do |l|
       year = l.split('/')[1]
+      prev_year = year unless prev_year
       month = l.split('/')[0]
       count = Event.by_archive(Time.parse(l)).size
-      text = t("date.month_names")[month.to_i] + " #{year} (#{count})"      
+      text = t("date.month_names")[month.to_i] + " #{year} (#{count})"
+      html << "</ul><ul>" if prev_year != year
       html << "<li>"
       html << link_to(text, archive_events_path(:year => year, :month => month))
       html << "</li>"
+      prev_year = year
     end
     super_old_links.each do |l|
       year = l.split('/')[1]
@@ -41,5 +45,5 @@ module EventsHelper
     html << '</ul>'
     html.html_safe
   end
-  
+
 end
