@@ -17,6 +17,7 @@ category ||= false
 
   <section class="start_end">
     <p>
+      <a href="/events.ics" class="float-right"><img class="sprites sprite-icon-ics-32" src="/images/s.gif" alt="ical icon"></a>
       <span class="start"><%= event.start_at.strftime('%b %e, %Y %l:%M %p') %></span><span class="delim">&nbsp;|&nbsp;</span><span class="end"><%= event.end_at.strftime('%b %e, %Y %l:%M %p') %></span>
     </p>
   </section>
@@ -29,24 +30,30 @@ category ||= false
   </section>
 
   <% if individual -%>
+    <div id="share_this_event">
+      <span class="share-btn"><a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a></span>
+      <span class="share-btn"><g:plusone size="tall"></g:plusone></span>
+      <span class="share-btn"><script type="IN/Share" data-counter="top"></script></span>
+      <span class="share-btn"><fb:like href="<%= request.url %>" layout="box_count" show_faces="false" width="55" font=""></fb:like></span>
+    </div>
 
     <nav id="prevnext_nav">
       <span class="prev third">
-      <% if event.prev.present? -%>
-        <%= link_to event_path(event.prev), :class => "prev button" do -%>
-          &laquo; Previous <strong><%=truncate event.prev.title, :length => 20 %></strong>
+        <% if event.prev.present? -%>
+          <%= link_to event_path(event.prev), :class => "prev button" do -%>
+            &laquo; Previous <strong><%=truncate event.prev.title, :length => 20 %></strong>
+          <% end -%>
+        <% else -%>
+          <span class="prev disabled button">
+            &laquo; Previous
+          </span>
         <% end -%>
-      <% else -%>
-        <span class="prev disabled button">
-          &laquo; Previous
-        </span>
-      <% end -%>
       </span>
 
       <%= link_to events_path, :class => "home button" do -%>
         Events home
       <% end -%>
-       <span class="next third">
+      <span class="next third">
         <% if event.next.present? -%>
           <%= link_to event_path(event.next), :class => "next button" do -%>
             Next <strong>
@@ -57,7 +64,7 @@ category ||= false
             Next &raquo;
           </span>
         <% end -%>
-       </span>
+      </span>
     </nav><!--#event_nav-->
   <% end -%>
 
