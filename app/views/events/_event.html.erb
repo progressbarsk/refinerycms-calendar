@@ -11,16 +11,18 @@ category ||= false
     <%= image_fu event.image, "150x150#c" %>
   </section>
   <% end %>
-
+  
+  
   <% unless individual -%>
+    <a href="<%= url_for(:format => :ics) %>" class="float-right"><img class="sprites sprite-icon-ics-32" src="/images/s.gif" alt="ical"></a>
     <h3><%= link_to event.title, event %></h3>
   <% end -%>
 
+  <% if individual -%>
+    <a href="<%= url_for(:format => :ics) %>" class="float-right"><img class="sprites sprite-icon-ics-32" src="/images/s.gif" alt="ical"></a>
+  <% end  %>
   <section class="start_end">
-    <p>
-      <a href="<%= url_for(:format => :ics) %>" class="float-right"><img class="sprites sprite-icon-ics-32" src="/images/s.gif" alt="ical icon"></a>
       <span class="start"><%= event.start_at.strftime('%b %e, %Y %l:%M %p') %></span><span class="delim">&nbsp;|&nbsp;</span><span class="end"><%= event.end_at.strftime('%b %e, %Y %l:%M %p') %></span>
-    </p>
   </section>
   <section>
     <% if individual -%>
