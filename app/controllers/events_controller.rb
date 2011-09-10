@@ -5,9 +5,9 @@ class EventsController < ApplicationController
   before_filter :find_categories
 
   helper [:events, :event_categories]
-
-  #  layout proc{ |c| c.request.xhr? ? false : "application" }
-
+  
+  respond_to :html, :ics
+  
   def index
     # you can use meta fields from your model instead (e.g. browser_title)
     # by swapping @page for @event in the line below:
@@ -18,15 +18,15 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     if canonical?
       if @event.slugs.any?
-        #        @canonical = url_for(:id => @event.slugs.where(:locale => :sk).first.name, :locale => ::Refinery::I18n.default_frontend_locale)
         @canonical = url_for(:id => @event.slugs.first.name, :locale => ::Refinery::I18n.default_frontend_locale)
       else
         @canonical = url_for(:locale => ::Refinery::I18n.default_frontend_locale) if canonical?
       end
     end
-    # you can use meta fields from your model instead (e.g. browser_title)
-    # by swapping @page for @event in the line below:
-    present(@page)
+    
+    respond_with (@event) do |format|
+      format.html { present(@event) }
+    end
   end
 
   def archive
@@ -75,8 +75,8 @@ class EventsController < ApplicationController
 
   def canonical?
     canonical = (::Refinery.i18n_enabled? &&
-                ::Refinery::I18n.default_frontend_locale != ::Refinery::I18n.current_frontend_locale) ||
-                (@event.slugs.any? && @event.slugs.first.name != params[:id])
+        ::Refinery::I18n.default_frontend_locale != ::Refinery::I18n.current_frontend_locale) ||
+      (@event.slugs.any? && @event.slugs.first.name != params[:id])
     canonical
   end
 
