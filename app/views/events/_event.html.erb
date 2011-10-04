@@ -7,11 +7,10 @@ category ||= false
 
 <%= div_for event, :class => 'individual_event' do -%>
   <% if event.image %>
-    <section class="event_image">
+    <div class="event_image">
       <%= image_fu event.image, "150x150#c" %>
-    </section>
+    </div>
   <% end %>
-
 
   <% unless individual -%>
     <%= link_to event_path(event, :format => :ics), :class => 'float-right', :title => 'ICAL' do -%>
@@ -23,16 +22,16 @@ category ||= false
       <img class="sprites sprite-icon-ics-32" src="/images/s.gif" alt="ICAL">
     <% end %>
   <% end %>
-  <section class="start_end">
+  <div class="start_end">
     <span class="start"><%= event.start_at.strftime('%b %e, %Y %l:%M %p') %></span><span class="delim">&nbsp;|&nbsp;</span><span class="end"><%= event.end_at.strftime('%b %e, %Y %l:%M %p') %></span>
-  </section>
-  <section>
+  </div>
+  <div>
     <% if individual -%>
       <%=raw event.description %>
     <% else -%>
       <%= simple_format(truncate strip_tags(event.description), :length => 200) %>
     <% end -%>
-  </section>
+  </div>
 
   <% if individual -%>
     <div id="share_this_event">
@@ -41,7 +40,6 @@ category ||= false
       <span class="share-btn"><script type="IN/Share" data-counter="top"></script></span>
       <span class="share-btn"><fb:like href="<%= request.url %>" layout="box_count" show_faces="false" width="55" font=""></fb:like></span>
     </div>
-
     <nav id="prevnext_nav">
       <span class="prev third">
         <% if event.prev.present? -%>
@@ -72,5 +70,5 @@ category ||= false
       </span>
     </nav><!--#event_nav-->
   <% end -%>
-
+  <div clas="reset">&nbsp;</div>
 <% end -%>
