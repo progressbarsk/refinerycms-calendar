@@ -6,11 +6,13 @@ category ||= false
 -%>
 
 <%= div_for event, :class => 'individual_event' do -%>
-  <% if event.image %>
-    <div class="event_image">
-      <%= image_fu event.image, "150x150#c" %>
-    </div>
-  <% end %>
+  <div class="event_image">
+    <% if event.image %>
+      <%= image_fu event.image, "150x150#c", :alt => 'Progressbar event ilustration' %>
+    <% else %>
+      <img src="/images/content/pb_default_event.png" width="150" height="150" alt="Progressbar event default ilustration" />
+    <% end %>
+  </div>
 
   <% unless individual -%>
     <%= link_to event_path(event, :format => :ics), :class => 'float-right', :title => 'ICAL' do -%>
