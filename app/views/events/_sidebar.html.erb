@@ -30,7 +30,8 @@ href='#{events_url(:format => :ics)}' />".html_safe -%>
   <% end -%>
   <aside class="sidebar_module subscribe">
     <h2>Subscribe</h2>
-    <a href="<%= events_path(:format => :rss) %>"><img alt="rss icon" src="/images/s.gif" class="sprites sprite-icon-rss-32" />RSS </a><br /><br />
-    <a href="<%= events_path(:format => :ics) %>"><img alt="ical icon" src="/images/s.gif" class="sprites sprite-icon-ics-32" />ICAL</a>
+    <a href="<%= events_path(:format => :rss) %>"><img alt="rss" src="/images/s.gif" class="sprites sprite-icon-rss-32" />RSS </a><br /><br />
+    <a href="<%= events_path(:format => :ics) %>"><img alt="ical" src="/images/s.gif" class="sprites sprite-icon-ics-32" />ICAL</a><br /><br />
+    <label for="mailing_list_email"><img alt="email" src="/images/s.gif" class="sprites sprite-icon-email-32" /> &nbsp;E-mail notification</label>
   </aside><!-- subscribe -->
 <% end %>
